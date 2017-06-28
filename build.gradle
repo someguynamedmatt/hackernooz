@@ -1,0 +1,33 @@
+buildscript {
+    ext.kotlin_version = '1.1.2-5'
+    ext.fuel_version = '1.7.0'
+    ext.anko_version = '0.10.1'
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.google.gms:google-services:3.0.0'
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+    ext{
+        targetSDKVersion = 25
+        minSDKVersion = 19
+        buildToolVersion = '25.0.2'
+        supportLibraryVersion = '25.0.1'
+        playServicesVersion = '9.4.0'
+    }
+}
+
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
