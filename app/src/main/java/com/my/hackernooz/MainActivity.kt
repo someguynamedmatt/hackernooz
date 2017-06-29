@@ -1,21 +1,41 @@
 package com.my.hackernooz
 
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
-import android.view.View
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ListView
 import com.my.hackernooz.services.Http
+import com.my.hackernooz.views.MainView
+import com.my.hackernooz.views.RecipeView
+import org.jetbrains.anko.setContentView
+import android.widget.ArrayAdapter
+
+
+
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val http: Http = Http()
-        http.get("askstories.json?print=pretty")
+        //http.get("/askstories.json?print=pretty")
+        //http.get("/item/14651665.json?print=pretty")
+// 1
+        var mListView = RecipeView(this)
+        val recipeList = Recipe.getRecipesFromFile("recipes.json", this)
+// 2
+        val listItems = arrayOfNulls<String>(recipeList.size)
+// 3
+        for (i in 0..recipeList.size - 1) {
+            val recipe = recipeList[i]
+            listItems[i] = recipe.title
+        }
+// 4
+        val adapter = RecipeAdapter(this, recipeList)
+        mListView.adapter = adapter
+        setContentView(mListView)
+
         /*
         setContentView(R.layout.activity_main)
         val toolbar = findViewById(R.id.toolbar) as Toolbar
